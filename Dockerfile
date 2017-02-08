@@ -12,11 +12,11 @@ RUN chmod a+x /etc/init.d/xvfb
 ENV DISPLAY :99
 
 RUN wget --no-check-certificate --header="Cookie: oraclelicense=a" \
-  -O- http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz | tar zx -C /opt
+  -qO- http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz | tar zx -C /opt
 RUN ln -sf /opt/jdk1.8.0_25/bin/* /usr/local/bin
 
 USER eclim
-RUN wget -O /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz http://ftp.jaist.ac.jp/pub/eclipse/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz && tar -zxf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz -C /home/eclim && rm -rf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz
+RUN wget -qO /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz http://ftp.jaist.ac.jp/pub/eclipse/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz && tar -zxf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz -C /home/eclim && rm -rf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz
 RUN wget -O /tmp/eclim_2.6.0.jar https://github.com/ervandew/eclim/releases/download/2.6.0/eclim_2.6.0.jar
 
 USER root
