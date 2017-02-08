@@ -17,7 +17,7 @@ RUN ln -sf /opt/jdk1.8.0_25/bin/* /usr/local/bin
 
 USER eclim
 RUN wget -qO /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz http://ftp.jaist.ac.jp/pub/eclipse/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz && tar -zxf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz -C /home/eclim && rm -rf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz
-RUN wget -O /home/eclim/eclim_2.6.0.jar https://github.com/ervandew/eclim/releases/download/2.6.0/eclim_2.6.0.jar
+RUN wget -qO /home/eclim/eclim_2.6.0.jar https://github.com/ervandew/eclim/releases/download/2.6.0/eclim_2.6.0.jar
 
 USER root
 WORKDIR /root
