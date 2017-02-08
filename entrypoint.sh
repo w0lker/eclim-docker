@@ -5,7 +5,7 @@ set -e
 _do_installer() {
     installed_flag_file="/sbin/_eclipse_installed_"
     if [ ! -f $installed_flag_file ];then
-        su -l eclim -c 'echo "use dispaly is: $DISPLAY"'
+        su -l eclim -c 'echo "Using DISPLAY=$DISPLAY"'
         su -l eclim -c "/home/eclim/eclipse/eclipse -nosplash -consolelog -debug -application org.eclipse.equinox.p2.director -repository http://download.eclipse.org/releases/neon -installIU org.eclipse.wst.web_ui.feature.feature.group"
         su -l eclim -c "java -Dvim.skip=true -Declipse.home=/home/eclim/eclipse -jar eclim_2.6.0.jar install && rm -rf /home/eclim/eclim_2.6.0.jar"
         touch $installed_flag_file
@@ -13,7 +13,7 @@ _do_installer() {
 }
  
 _start_service() {
-    echo "start eclim service..."
+    echo "Starting eclim daemon service..."
     /etc/init.d/xvfb start
     sleep 1
     _do_installer
