@@ -1,0 +1,2 @@
+# Eclim daemon docker image
+
