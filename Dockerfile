@@ -24,7 +24,6 @@ ADD eclim_init /usr/local/bin/eclim_init
 RUN chmod a+x /usr/local/bin/eclim_init
 RUN /usr/local/bin/eclim_init 
 
-USER root
 ADD entrypoint.sh /sbin/entrypoint.sh
 RUN chmod a+x /sbin/entrypoint.sh
 ENTRYPOINT ["/sbin/entrypoint.sh"]
