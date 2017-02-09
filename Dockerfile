@@ -20,7 +20,6 @@ RUN wget -qO /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz http://ftp.jaist.a
 RUN wget -qO /home/eclim/eclim_2.6.0.jar https://github.com/ervandew/eclim/releases/download/2.6.0/eclim_2.6.0.jar
 
 USER root
-WORKDIR /root
 ADD entrypoint.sh /sbin/entrypoint.sh
 RUN chmod a+x /sbin/entrypoint.sh
 ENTRYPOINT ["/sbin/entrypoint.sh"]
