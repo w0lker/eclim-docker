@@ -30,9 +30,14 @@ RUN ln -sf /opt/jdk1.8.0_25/bin/* /usr/local/bin
 
 ENV USER_NAME :eclim
 RUN useradd -m -U -s /bin/bash ${USER_NAME}
-USER eclim
-RUN wget -qO /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz http://ftp.jaist.ac.jp/pub/eclipse/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz && tar -zxf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz -C /home/${USER_NAME}
-RUN cd /home/${USER_NAME} && git clone git://github.com/ervandew/eclim.git && cd eclim && ant -Declipse.home=/home/${USER_NAME}/eclipse deploy.eclipse
+USER ${USER_NAME}
+RUN wget -qO /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz http://ftp.jaist.ac.jp/pub/eclipse/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz && \
+    tar -zxf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz -C /home/${USER_NAME}
+RUN cd /home/${USER_NAME} && \
+    mkdir workspace && \
+    git clone git://github.com/ervandew/eclim.git && \
+    cd eclim && \
+    ant -Declipse.home=/home/${USER_NAME}/eclipse deploy.eclipse
 
 USER root
 RUN apt-get -y clean all && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
