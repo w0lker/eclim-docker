@@ -12,7 +12,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     maven \
     vim \
     wget \
-    ia32-libs ia32-libs-gtk \
+    libgtk2.0-0 \
     xvfb x11vnc x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic x11-apps \
     && apt-get -qy clean all
 
