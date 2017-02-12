@@ -28,7 +28,7 @@ RUN wget --no-check-certificate \
     -qO- http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz | tar -xz -C /opt
 RUN ln -sf /opt/jdk1.8.0_25/bin/* /usr/local/bin
 
-ENV USER_NAME :eclim
+ENV USER_NAME eclim
 RUN useradd -m -U -s /bin/bash ${USER_NAME}
 USER ${USER_NAME}
 RUN wget -qO /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz http://ftp.jaist.ac.jp/pub/eclipse/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz && \
