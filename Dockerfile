@@ -37,7 +37,7 @@ RUN cd /home/${USER_NAME} && \
     mkdir workspace && \
     git clone git://github.com/ervandew/eclim.git && \
     cd eclim && \
-    ant -Declipse.home=/home/${USER_NAME}/eclipse deploy.eclipse
+    ant -Declipse.home=/home/${USER_NAME}/eclipse
 
 USER root
 RUN apt-get -y clean all && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
