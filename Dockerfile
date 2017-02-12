@@ -46,7 +46,9 @@ RUN cd /home/${USER_NAME} && \
 EXPOSE 9091
 
 USER root
+
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 ADD entrypoint.sh /sbin/entrypoint.sh
 RUN chmod a+x /sbin/entrypoint.sh
 ENTRYPOINT ["/sbin/entrypoint.sh"]
