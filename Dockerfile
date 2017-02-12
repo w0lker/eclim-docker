@@ -3,7 +3,8 @@ MAINTAINER w0lker w0lker.tg@gmail.com
 
 RUN useradd -m -U -s /bin/bash eclim 
 
-RUN apt-get -y update \
+RUN DEBIAN_FRONTEND=noninteractive && \
+    apt-get -y update \
     && apt-get install -qy \
     language-pack-zh-hans \
     locales \
