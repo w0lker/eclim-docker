@@ -1,8 +1,8 @@
 FROM ubuntu:latest
 MAINTAINER w0lker w0lker.tg@gmail.com
 
-RUN DEBIAN_FRONTEND=noninteractive && \
-    apt-get -qy update \
+RUN DEBIAN_FRONTEND=noninteractive \
+    && apt-get -qy update \
     && apt-get install -qy \
     language-pack-zh-hans \
     locales \
@@ -12,6 +12,7 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     maven \
     vim \
     wget \
+    ia32-libs ia32-libs-gtk \
     xvfb x11vnc x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic x11-apps \
     && apt-get -qy clean all
 
