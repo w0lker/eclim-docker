@@ -30,13 +30,17 @@ RUN ln -sf /opt/jdk1.8.0_25/bin/* /usr/local/bin
 
 ENV USER_NAME eclim
 RUN useradd -m -U -s /bin/bash ${USER_NAME}
-USER ${USER_NAME}
 
+USER ${USER_NAME}
 RUN wget -qO /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz http://ftp.jaist.ac.jp/pub/eclipse/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz && \
     tar -zxf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz -C /home/${USER_NAME}
 ENV WORKSPACE /home/${USER_NAME}/projects
+RUN mkdir -p ${WORKSPACE}
+USER root
+RUN chown -R ${USER_NAME}:${USER_NAME} ${WORKSPACE}
 VOLUME ["${WORKSPACE}"]
 
+USER ${USER_NAME}
 RUN cd /home/${USER_NAME} && \
     git clone git://github.com/ervandew/eclim.git && \
     cd eclim && \
@@ -46,9 +50,7 @@ RUN cd /home/${USER_NAME} && \
 EXPOSE 9091
 
 USER root
-
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 ADD entrypoint.sh /sbin/entrypoint.sh
 RUN chmod a+x /sbin/entrypoint.sh
 ENTRYPOINT ["/sbin/entrypoint.sh"]
