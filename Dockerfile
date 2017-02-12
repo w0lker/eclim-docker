@@ -27,10 +27,6 @@ RUN wget -qO /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz http://ftp.jaist.a
 RUN cd /home/eclim && git clone git://github.com/ervandew/eclim.git && cd eclim && ant -Declipse.home=/home/eclim/eclipse deploy.eclipse
 
 USER root
-#ADD eclim_init.sh /sbin/eclim_init.sh
-#RUN chmod a+x /sbin/eclim_init.sh
-#RUN /sbin/eclim_init.sh 
-
 ADD entrypoint.sh /sbin/entrypoint.sh
 RUN chmod a+x /sbin/entrypoint.sh
 ENTRYPOINT ["/sbin/entrypoint.sh"]
