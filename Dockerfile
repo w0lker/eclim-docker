@@ -30,12 +30,15 @@ RUN wget --no-check-certificate \
 RUN ln -sf /opt/jdk1.8.0_25/bin/* /usr/local/bin
 
 ENV USER_NAME eclim
+ENV WORKSPACE /home/${USER_NAME}/projects
 RUN useradd -m -U -s /bin/bash ${USER_NAME}
 USER ${USER_NAME}
 RUN wget -qO /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz http://ftp.jaist.ac.jp/pub/eclipse/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz && \
     tar -zxf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz -C /home/${USER_NAME}
+RUN cd /home/${USER_NAME} && ./eclipse/eclipse -nosplash -consolelog -debug -application org.eclipse.equinox.p2.director -repository http://download.eclipse.org/releases/neon -installIU org.scala-ide.sdt.feature.feature.group
+RUN cd /home/${USER_NAME} && ./eclipse/eclipse -nosplash -consolelog -debug -application org.eclipse.equinox.p2.director -repository http://download.eclipse.org/releases/neon -installIU org.codehaus.groovy.eclipse.feature.feature.group
+RUN mkdir -p ${WORKSPACE}
 RUN cd /home/${USER_NAME} && \
-    mkdir workspace && \
     git clone git://github.com/ervandew/eclim.git && \
     cd eclim && \
     ant -Declipse.home=/home/${USER_NAME}/eclipse
