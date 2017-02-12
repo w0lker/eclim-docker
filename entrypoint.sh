@@ -2,22 +2,21 @@
 
 set -e
  
-_start_service() {
-    echo "Starting eclim daemon service..."
-    /etc/init.d/xvfb start
-    sleep 1
-    su -l eclim -c "/home/eclim/eclipse/eclimd"
+__start() {
+    /etc/init.d/xvfb.init start
+    sleep 2
+    su -l ${USER_NAME} -c "/home/${USER_NAME}/eclipse/eclimd"
 }
 
-_stop_service() {
-    /etc/init.d/xvfb stop
+__stop() {
+    /etc/init.d/xvfb.init stop
     exit
 }
 
-trap "_stop_service" HUP INT QUIT KILL TERM
+trap "__stop" HUP INT QUIT KILL TERM
 
 if [ -z "$@" ]; then
-    _start_service
+    __start
 else
     exec "$@"
 fi
