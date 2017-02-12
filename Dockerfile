@@ -4,7 +4,9 @@ MAINTAINER w0lker w0lker.tg@gmail.com
 RUN useradd -m -U -s /bin/bash eclim 
 
 RUN apt-get -y update \
-    && apt-get install -y \
+    && apt-get install -qy \
+    language-pack-zh-hans \
+    locales \
     build-essential \
     git \
     ant \
@@ -13,6 +15,10 @@ RUN apt-get -y update \
     wget \
     xvfb x11vnc x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic x11-apps \
     && apt-get -y clean all
+
+RUN locale-gen en_US.UTF-8
+RUN locale-gen zh_CN.UTF-8
+ENV LANG en_US.UTF-8
 
 ADD xvfb_init /etc/init.d/xvfb
 RUN chmod a+x /etc/init.d/xvfb
