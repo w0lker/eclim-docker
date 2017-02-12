@@ -2,7 +2,7 @@ FROM ubuntu:latest
 MAINTAINER w0lker w0lker.tg@gmail.com
 
 RUN DEBIAN_FRONTEND=noninteractive && \
-    apt-get -y update \
+    apt-get -qy update \
     && apt-get install -qy \
     language-pack-zh-hans \
     locales \
@@ -13,7 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     vim \
     wget \
     xvfb x11vnc x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic x11-apps \
-    && apt-get -y clean all
+    && apt-get -qy clean all
 
 RUN locale-gen en_US.UTF-8
 RUN locale-gen zh_CN.UTF-8
@@ -40,7 +40,9 @@ RUN cd /home/${USER_NAME} && \
     ant -Declipse.home=/home/${USER_NAME}/eclipse
 
 USER root
-RUN apt-get -y clean all && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 ADD entrypoint.sh /sbin/entrypoint.sh
 RUN chmod a+x /sbin/entrypoint.sh
 ENTRYPOINT ["/sbin/entrypoint.sh"]
