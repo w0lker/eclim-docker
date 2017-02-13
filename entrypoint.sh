@@ -5,7 +5,7 @@ set -e
 __start() {
     /etc/init.d/xvfb.init start
     sleep 2
-    su -l ${USER_NAME} -c "/home/${USER_NAME}/eclipse/eclimd -Dosgi.instance.area.default=${WORKSPACE} -Dfile.encoding=utf-8"
+    su -l ${USER_NAME} -c "cd /home/${USER_NAME}/eclipse && ./eclimd -Dosgi.instance.area.default=${WORKSPACE} -Dfile.encoding=utf-8"
 }
 
 __stop() {
@@ -14,7 +14,7 @@ __stop() {
 }
 
 __eclim() {
-    su -l ${USER_NAME} -c "cd /home/${USER_NAME} && eclipse/eclim $@"
+    su -l ${USER_NAME} -c "cd /home/${USER_NAME}/eclipse && ./eclim $@"
 }
 
 trap "__stop" HUP INT QUIT KILL TERM
