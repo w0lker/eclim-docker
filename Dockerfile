@@ -36,7 +36,7 @@ RUN useradd -m -U -s /bin/bash ${USER_NAME}
 USER ${USER_NAME}
 RUN wget -qO /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz \
     http://ftp.jaist.ac.jp/pub/eclipse/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz \
-    && tar -zxf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz -C /home/${USER_NAME}
+    && tar -zxf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz -C /home/${USER_NAME} \
     && rm -rf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz
 
 USER root
