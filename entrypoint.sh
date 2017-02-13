@@ -13,7 +13,7 @@ __stop() {
     exit
 }
 
-__client() {
+__eclim() {
     su -l ${USER_NAME} -c "cd /home/${USER_NAME} && eclipse/eclim $@"
 }
 
@@ -22,13 +22,10 @@ trap "__stop" HUP INT QUIT KILL TERM
 if [ -z "$@" ]; then
     __start
 else
-    case $1 in
-	-client)
-	    shift 1
-	    __client $@
-	    ;;
-	*)
-	    exec $@
-	    ;;
-    esac
+    if [ "$1" == "eclim" ];then
+	shift 1
+	__eclim "$@"
+    else
+	exec "$@"
+    fi
 fi
