@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
- 
+
 __start() {
     /etc/init.d/xvfb.init start
     sleep 2
@@ -13,10 +13,22 @@ __stop() {
     exit
 }
 
+__client() {
+    su -l ${USER_NAME} -c "cd /home/${USER_NAME} && eclipse/eclim $@"
+}
+
 trap "__stop" HUP INT QUIT KILL TERM
 
 if [ -z "$@" ]; then
     __start
 else
-    exec "$@"
+    case $1 in
+	-client)
+	    shift 1
+	    __client $@
+	    ;;
+	*)
+	    exec $@
+	    ;;
+    esac
 fi
