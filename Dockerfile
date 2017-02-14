@@ -49,8 +49,8 @@ EXPOSE 9091
 
 USER root
 ENV DISPLAY :1
-ADD eclim_client /sbin/client
-RUN chmod a+x client
+ADD client /sbin/client
+RUN chmod a+x /sbin/client
 ADD entrypoint /sbin/entrypoint
 RUN chmod a+x /sbin/entrypoint
 ENTRYPOINT ["/sbin/entrypoint"]
