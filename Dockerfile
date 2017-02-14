@@ -21,10 +21,6 @@ ENV LANG en_US.UTF-8
 RUN apt-get -qy clean all
 RUN rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
 
-ADD xvfb_init /etc/init.d/xvfb.init
-RUN chmod a+x /etc/init.d/xvfb.init
-ENV DISPLAY :1
-
 RUN wget --no-check-certificate \
     --header="Cookie: oraclelicense=a" \
     -qO- http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz | tar -xz -C /opt
@@ -52,6 +48,9 @@ RUN cd /home/${USER_NAME} \
 EXPOSE 9091
 
 USER root
-ADD entrypoint.sh /sbin/entrypoint.sh
-RUN chmod a+x /sbin/entrypoint.sh
-ENTRYPOINT ["/sbin/entrypoint.sh"]
+ENV DISPLAY :1
+ADD eclim_client /sbin/client
+RUN chmod a+x client
+ADD entrypoint /sbin/entrypoint
+RUN chmod a+x /sbin/entrypoint
+ENTRYPOINT ["/sbin/entrypoint"]
