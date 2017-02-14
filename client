@@ -2,4 +2,6 @@
 
 set -e
 
-su -l -c "cd /home/${USER_NAME}/eclipse && ./eclim $@" ${USER_NAME}
+su ${USER_NAME}
+cd /home/${USER_NAME}/eclipse
+./eclim $@
