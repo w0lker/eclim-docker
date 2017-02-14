@@ -36,9 +36,11 @@ RUN wget -qO /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz \
     && rm -rf /tmp/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz
 
 USER root
-ENV WORKSPACE /projects
+ENV PROJECTS /projects
+RUN mkdir -p ${PROJECTS} && chown -R ${USER_NAME}:${USER_NAME} ${PROJECTS}
+ENV WORKSPACE /workspace
 RUN mkdir -p ${WORKSPACE} && chown -R ${USER_NAME}:${USER_NAME} ${WORKSPACE}
-VOLUME ["${WORKSPACE}"]
+VOLUME ["${PROJECTS}", "${WORKSPACE}"]
 
 USER ${USER_NAME}
 RUN cd /home/${USER_NAME} \
@@ -49,8 +51,6 @@ EXPOSE 9091
 
 USER root
 ENV DISPLAY :1
-ADD client /sbin/client
-RUN chmod a+x /sbin/client
-ADD entrypoint /sbin/entrypoint
-RUN chmod a+x /sbin/entrypoint
-ENTRYPOINT ["/sbin/entrypoint"]
+ADD entrypoint.sh /sbin/entrypoint.sh
+RUN chmod a+x /sbin/entrypoint.sh
+ENTRYPOINT ["/sbin/entrypoint.sh"]

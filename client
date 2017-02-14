@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -e
-
-su -l ${USER_NAME} && cd /home/${USER_NAME}/eclipse && ./eclim $@
