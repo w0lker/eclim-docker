@@ -2,8 +2,8 @@ FROM ubuntu:latest
 MAINTAINER w0lker w0lker.tg@gmail.com
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get -qy update \
-    && apt-get install -qy \
+RUN apt-get -qq -y update \
+    && apt-get -qq -y install \
     language-pack-zh-hans \
     locales \
     build-essential \
@@ -18,7 +18,7 @@ RUN locale-gen en_US.UTF-8
 RUN locale-gen zh_CN.UTF-8
 ENV LANG en_US.UTF-8
 
-RUN apt-get -qy clean all
+RUN apt-get -qq -y clean all
 RUN rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
 
 RUN wget --no-check-certificate \
@@ -42,7 +42,7 @@ VOLUME ["${WORKSPACE}"]
 
 USER ${USER_NAME}
 RUN cd /home/${USER_NAME} \
-    && git clone git://github.com/ervandew/eclim.git \
+    && git clone -q git://github.com/ervandew/eclim.git \
     && cd eclim && ant -Declipse.home=/home/${USER_NAME}/eclipse \
     && rm -rf /home/${USER_NAME}/eclim
 EXPOSE 9091
